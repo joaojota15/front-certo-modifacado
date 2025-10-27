@@ -1,0 +1,101 @@
+/* src/pages/CadastroPage/CadastroPage.styles.css */
+
+/* O container principal da página, cobrindo tudo abaixo do cabeçalho */
+.cadastro-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Define a altura para ocupar a tela inteira menos a altura do cabeçalho */
+  /* Ajuste '60px' se a altura do seu cabeçalho for diferente */
+  min-height: calc(100vh - 60px); 
+  padding: 2rem 0; /* Espaçamento vertical */
+  background-color: #12001c; /* Cor de fundo roxo bem escuro, igual ao login */
+  color: #f0f0f0; /* Cor do texto padrão (claro) */
+}
+
+/* Um wrapper para o formulário, se necessário (pode ser removido e estilos aplicados direto no form) */
+.cadastro-form-wrapper {
+  width: 100%;
+  max-width: 420px; /* Largura similar ao seu formulário de login */
+  padding: 0 1rem;
+}
+
+/* O card do formulário */
+.cadastro-form {
+  background: #2b2a33; /* Fundo do card (cinza escuro/roxo) */
+  padding: 2.5rem 2rem;
+  border-radius: 16px; /* Bordas arredondadas */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.cadastro-form h2 {
+  /* Cor roxa vibrante do "Bem-vindo de volta!" */
+  color: #c94bff; 
+  margin-bottom: 2rem;
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+.input-group {
+  margin-bottom: 1.25rem;
+  text-align: left;
+  position: relative; /* Para posicionar ícones se você adicionar */
+}
+
+.input-group input {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  background-color: #3e3d47; /* Cor de fundo do input */
+  border: 1px solid #555;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 1rem;
+  box-sizing: border-box; 
+  outline: none; /* Remove a borda azul ao focar */
+}
+
+.input-group input::placeholder {
+  color: #a0a0a0;
+}
+
+.input-group input:focus {
+  border-color: #c94bff; /* Borda roxa ao focar */
+}
+
+/* Botão principal de cadastro (estilo gradiente igual ao 'Entrar') */
+.cadastro-button {
+  width: 100%;
+  padding: 0.9rem;
+  border: none;
+  border-radius: 8px;
+  /* Gradiente roxo-para-azul da sua tela de login */
+  background: linear-gradient(90deg, #8e44ad, #3498db); /* Ajuste essas cores */
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  margin-top: 1rem;
+}
+
+.cadastro-button:hover {
+  opacity: 0.9;
+}
+
+/* Link para a tela de login */
+.login-link {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: #a0a0a0;
+}
+
+.login-link a {
+  color: #c94bff; /* Link roxo */
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
