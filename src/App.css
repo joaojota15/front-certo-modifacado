@@ -468,3 +468,115 @@ body {
     border: 1px dashed #3c0ba0;
     border-radius: 6px;
 }
+
+/* --- ESTILOS ESPECÍFICOS DA PÁGINA DE CONFIGURAÇÕES --- */
+
+.settings-title {
+    font-size: 2.2rem;
+    margin-top: 30px;
+    margin-bottom: 25px;
+    color: #a855f7;
+    text-align: center;
+    border-bottom: 1px solid #3c0ba0;
+    padding-bottom: 15px;
+}
+
+/* Layout de 2 Colunas (Menu e Conteúdo) */
+.settings-grid {
+    display: grid;
+    grid-template-columns: 200px 1fr; /* 200px para o menu lateral, o resto para o conteúdo */
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+/* Menu Lateral (Sidebar) */
+.settings-sidebar {
+    display: flex;
+    flex-direction: column;
+    padding-right: 10px;
+}
+
+.settings-tab-btn {
+    text-align: left;
+    padding: 12px 15px;
+    margin-bottom: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    background-color: transparent;
+    color: #f0f0f0;
+    border: none;
+    border-left: 3px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.settings-tab-btn:hover {
+    background-color: #1f0352; /* Fundo roxo escuro no hover */
+    border-left-color: #8b5cf6;
+}
+
+.settings-tab-btn.active {
+    background-color: #1f0352;
+    border-left-color: #a855f7; /* Roxo vibrante para aba ativa */
+    font-weight: bold;
+}
+
+.settings-tab-back {
+    margin-top: 20px;
+    color: #a0aec0 !important;
+    text-decoration: none;
+}
+
+/* Conteúdo da Seção */
+.settings-content-main {
+    padding: 20px;
+}
+
+.settings-content-card {
+    background-color: #1f0352;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.settings-content-card h3 {
+    color: #a855f7;
+    margin-top: 0;
+    border-bottom: 1px solid #3c0ba0;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.setting-description {
+    color: #a0aec0;
+    font-size: 0.9rem;
+    margin-bottom: 30px;
+}
+
+/* Estilos de Formulário */
+.settings-form .form-group {
+    margin-bottom: 20px;
+}
+
+.settings-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #ccc;
+    font-size: 0.95rem;
+}
+
+.settings-form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #3c0ba0;
+    background-color: #12012e; /* Fundo do corpo */
+    color: #f0f0f0;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.settings-form input:focus {
+    border-color: #a855f7;
+    outline: none;
+}

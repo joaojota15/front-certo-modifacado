@@ -13,20 +13,21 @@ import Footer from './components/Footer';
 import LoginPage from './Pages/LoginPage/loginpage.jsx';
 import CadastroPage from './Pages/CadastroPage/CadastroPage';
 import PerfilPage from './Pages/PerfilPage/PerfilPage';
+// 🔑 CORREÇÃO: Importa a página real de Configurações
+import SettingsPage from './Pages/SettingsPage/SettingsPage'; 
 
 // 3. DASHBOARD e PROTECTED ROUTE:
 import DashboardPage from './Pages/DashboardPage/DashboardPage';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
-// Componente simples para a página de Configurações (A ser expandido)
-const SettingsPage = () => <h1>Página de Configurações do Usuário</h1>;
+// 💥 REMOVIDO: O placeholder 'const SettingsPage = () => <h1>...</h1>;' foi removido daqui.
+
 
 // Layout principal que envolve a maioria das rotas
 const AppLayout = () => (
     <div className="App">
         <Cabeçalho />
-        {/* 💥 CORREÇÃO CRÍTICA: Removemos a classe "container" do main. 
-           Agora, o main ocupa 100% da largura, permitindo que as páginas filhas controlem o layout. */}
+        {/* A classe 'container' foi removida do main, corrigindo conflitos de layout. */}
         <main>
             <Outlet /> 
         </main>
@@ -58,6 +59,7 @@ function App() {
                 <Route element={<ProtectedRoute />}>
                     <Route path="dashboard" element={<DashboardPage />} />
                     <Route path="perfil" element={<PerfilPage />} /> 
+                    {/* Agora, esta rota usa o componente importado */}
                     <Route path="settings" element={<SettingsPage />} /> 
                 </Route>
                 
