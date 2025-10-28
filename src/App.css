@@ -1,161 +1,470 @@
-
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: #12012e;
-  color: #f0f0f0;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #12012e; /* Fundo principal escuro */
+    color: #f0f0f0;
 }
 
 .container {
-  width: 100%;
-  max-width: 1140px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 20px;
-  padding-right: 20px;
-  box-sizing: border-box;
+    width: 100%;
+    max-width: 1140px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-sizing: border-box;
 }
 
 .header {
-  background-color: #1a0245;
-  padding: 15px 0;
-  border-bottom: 1px solid #3c0ba0;
+    background-color: #1a0245; /* Fundo do cabeçalho */
+    padding: 15px 0;
+    border-bottom: 1px solid #3c0ba0;
 }
 
 .header-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .logo-text {
-  margin: 0;
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: #a855f7;
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #a855f7; /* Roxo vibrante */
 }
 
 .header-nav .btn {
-  margin-left: 10px;
+    margin-left: 10px;
 }
 
 .btn {
-  border: none;
-  padding: 10px 20px;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
 }
 
 
 .btn-primary {
-  background-color: #8b5cf6;
-  color: white;
+    background-color: #8b5cf6;
+    color: white;
 }
 
 .btn-primary:hover {
-  background-color: #7c3aed;
-  transform: translateY(-2px);
+    background-color: #7c3aed;
+    transform: translateY(-2px);
 }
 
 .btn-secondary {
-  background-color: transparent;
-  color: white;
-  border: 1px solid #8b5cf6;
+    background-color: transparent;
+    color: white;
+    border: 1px solid #8b5cf6;
 }
 
 .btn-secondary:hover {
-  background-color: #8b5cf6;
-  color: white;
+    background-color: #8b5cf6;
+    color: white;
 }
 
+/* --- ESTILOS DO MENU DE PERFIL --- */
+
+.profile-menu-wrapper {
+    position: relative; 
+    display: inline-block;
+}
+
+.btn-profile {
+    background-color: #8b5cf6; 
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    display: flex; 
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-profile:hover {
+    background-color: #7c3aed;
+}
+
+.profile-dropdown {
+    position: absolute;
+    top: 100%; 
+    right: 0; 
+    z-index: 20; 
+    background-color: #1f0352; 
+    border: 1px solid #3c0ba0; 
+    border-radius: 6px;
+    min-width: 180px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.7); 
+    display: none; 
+    padding: 5px 0; 
+}
+
+.profile-menu-wrapper:hover .profile-dropdown {
+    display: block;
+}
+
+.dropdown-item {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #f0f0f0; 
+    font-size: 0.95rem;
+    transition: background-color 0.2s, color 0.2s;
+    box-sizing: border-box; 
+    width: 100%; 
+    text-align: left;
+    background: transparent; 
+    border: none;
+}
+
+.dropdown-item:hover {
+    background-color: #2a0b68; 
+    color: white;
+}
+
+.dropdown-separator {
+    border: none;
+    height: 1px;
+    background-color: #3c0ba0; 
+    margin: 5px 0;
+}
+
+.btn-logout {
+    color: #ff7777; 
+    font-weight: bold;
+    text-align: left;
+    width: 100%; 
+    background: transparent;
+}
+
+.btn-logout:hover {
+    background-color: #2a0b68;
+    color: #ff5757;
+}
+
+/* --- CONTINUAÇÃO DOS ESTILOS ORIGINAIS --- */
+
 .hero-section {
-  display: flex;
-  align-items: center;
-  gap: 40px;
-  padding: 60px 0;
-  background-color: #1f0352;
-  border-radius: 8px;
-  margin-top: 40px;
-  padding: 40px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    padding: 60px 0;
+    background-color: #1f0352;
+    border-radius: 8px;
+    margin-top: 40px;
+    padding: 40px;
 }
 
 .hero-logo img {
-  max-width: 150px;
+    max-width: 150px;
 }
 
 .hero-content h2 {
-  font-size: 2rem;
-  margin-top: 0;
+    font-size: 2rem;
+    margin-top: 0;
 }
 
 .popular-games, .recent-posts {
-  margin-top: 60px;
+    margin-top: 60px;
 }
 
 
 .popular-games h3, .recent-posts h3 {
-  text-align: center;
-  font-size: 1.9rem;
-  margin-bottom: 40px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #3c0ba0;
+    text-align: center;
+    font-size: 1.9rem;
+    margin-bottom: 40px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #3c0ba0;
 }
 
 .games-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
 }
 
 .game-card {
-  overflow: hidden;
-  border-radius: 8px;
+    overflow: hidden;
+    border-radius: 8px;
 }
 
 .game-card img {
-  width: 100%;
-  height: auto;
-  display: block;
-  transition: transform 0.3s ease;
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease;
 }
 
 
 .game-card:hover img {
-  transform: scale(1.05);
+    transform: scale(1.05);
 }
 
 .posts-list {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .post-item {
-  background-color: #1f0352;
-  padding: 20px;
-  border-radius: 6px;
-  border-left: 3px solid #8b5cf6;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
+    background-color: #1f0352;
+    padding: 20px;
+    border-radius: 6px;
+    border-left: 3px solid #8b5cf6;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
 }
 
 
 .post-item:hover {
-  background-color: #2a0b68;
-  border-left-color: #a855f7;
-  transform: translateX(5px);
+    background-color: #2a0b68;
+    border-left-color: #a855f7;
+    transform: translateX(5px);
 }
 
 .footer {
-  text-align: center;
-  margin-top: 60px;
-  padding: 20px 0;
-  color: #a0aec0;
-  border-top: 1px solid #3c0ba0;
+    text-align: center;
+    margin-top: 60px;
+    padding: 20px 0;
+    color: #a0aec0;
+    border-top: 1px solid #3c0ba0;
+}
+
+
+/* --- ESTILOS ESPECÍFICOS DA PÁGINA DE PERFIL --- */
+
+.container.profile-page-layout { 
+    display: grid;
+    grid-template-columns: 280px 1fr 280px; 
+    gap: 30px; 
+    margin-top: 30px;
+    margin-bottom: 60px;
+}
+
+/* --- CORREÇÃO DE LAYOUT E USABILIDADE --- */
+
+/* 💥 CORREÇÃO 1: Botão Editar Perfil */
+.btn-edit-profile {
+    display: block; /* Ocupa a largura total */
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px; /* Cria espaço entre o botão e o próximo elemento (PLATAFORMAS) */
+}
+
+
+/* 💥 CORREÇÃO 2: Estilo dos Ícones das Plataformas */
+.platform-item {
+    background-color: #33334d; 
+    color: #f0f0f0;
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    
+    /* Alinhamento Horizontal do Ícone e Texto */
+    display: flex;
+    align-items: center;
+    gap: 15px; 
+    
+    border-left: 5px solid gray; 
+}
+
+.platform-icon {
+    width: 24px; /* Tamanho do Ícone */
+    height: 24px;
+    object-fit: contain;
+}
+
+/* --- COLUNA LATERAL ESQUERDA (USER CARD) --- */
+
+.profile-sidebar {
+    background-color: #1f0352; 
+    padding: 20px;
+    border-radius: 8px;
+    height: fit-content; 
+}
+
+/* Imagem de Perfil */
+.profile-img-placeholder {
+    width: 150px;
+    height: 150px;
+    background-color: #3c0ba0; 
+    border-radius: 50%;
+    margin: 0 auto 15px;
+    border: 3px solid #8b5cf6;
+}
+
+.user-card h3 {
+    text-align: center;
+    margin: 0 0 5px;
+    font-size: 1.5rem;
+}
+
+.user-location {
+    text-align: center;
+    color: #a0aec0;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+/* Grid de Stats */
+.user-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    text-align: center;
+    border: 1px solid #3c0ba0;
+    border-radius: 6px;
+    padding: 10px 0;
+    margin-bottom: 20px;
+}
+
+.stat-value {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #a855f7;
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.8rem;
+    color: #a0aec0;
+}
+
+/* Plataformas */
+.platforms-section h4 {
+    color: #8b5cf6;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+.platforms-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+
+.platform-item.epic { border-left-color: #55a8f7; }
+.platform-item.xbox { border-left-color: #107c10; }
+.platform-item.ps { border-left-color: #0070d1; }
+.platform-item.steam { border-left-color: #171a21; }
+
+.btn-edit-profile {
+    width: 100%;
+    text-align: center;
+}
+
+/* --- COLUNA CENTRAL (BIBLIOTECA & ATIVIDADES) --- */
+
+.library-section h2, .activities-section h2 {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #3c0ba0;
+}
+
+/* Biblioteca de Jogos (Grid) */
+.games-grid-perfil {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.game-card-perfil {
+    background-color: #33334d;
+    border-radius: 6px;
+    padding: 15px;
+    height: 100px; 
+    font-weight: bold;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: flex-end;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+}
+
+.game-card-perfil:hover {
+    border-color: #a855f7;
+    background-color: #3d0e7a;
+}
+
+/* Atividades */
+.activity-item {
+    background-color: #1f0352;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    border-left: 5px solid #3c0ba0;
+    transition: border-left-color 0.2s;
+}
+.activity-item.activity-new {
+    border-left-color: #8b5cf6; 
+}
+
+.activity-title {
+    font-weight: bold;
+    margin: 0 0 5px;
+}
+.activity-details {
+    color: #a0aec0;
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+.btn-full-width {
+    width: 100%;
+    margin-top: 15px;
+}
+
+/* --- COLUNA LATERAL DIREITA (AMIGOS E CONQUISTAS) --- */
+
+.profile-sidebar-right {
+    background-color: #1f0352; 
+    padding: 20px; 
+    border-radius: 8px;
+    height: fit-content; 
+}
+
+.friends-section h4, .achievements-section h4 {
+    color: #8b5cf6;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #3c0ba0;
+}
+
+.friends-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 40px;
+    color: #f0f0f0;
+}
+
+.achievements-icons {
+    font-size: 2rem;
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.achievement-box-placeholder {
+    height: 150px;
+    background-color: #1f0352;
+    border: 1px dashed #3c0ba0;
+    border-radius: 6px;
 }
