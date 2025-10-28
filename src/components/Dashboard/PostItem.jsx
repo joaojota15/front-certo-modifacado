@@ -1,6 +1,6 @@
 import React from 'react';
 
-// O componente recebe UM 'post' como propriedade (props)
+
 function PostItem({ post }) {
   return (
     <div className="post-item">

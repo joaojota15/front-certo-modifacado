@@ -1,17 +1,16 @@
-// src/Pages/CadastroPage/CadastroPage.jsx
+
 
 import React, { useState } from 'react'; 
-import { useNavigate } from 'react-router-dom'; // 1. IMPORTADO: Hook para redirecionar
+import { useNavigate } from 'react-router-dom'; 
 import './CadastroPage.styles.css'; 
 
-// 2. REMOVIDO: import Cabeçalho from '../../components/Cabeçalho'; 
-//    (Removido para evitar o cabeçalho duplicado)
+
 
 function CadastroPage() {
-  // Inicializa o useNavigate
+  
   const navigate = useNavigate(); 
   
-  // Definindo o estado para armazenar os dados do formulário
+  
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -19,7 +18,7 @@ function CadastroPage() {
     confirmPassword: '',
   });
 
-  // Função para atualizar o estado sempre que o usuário digita algo
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -28,30 +27,28 @@ function CadastroPage() {
     });
   };
 
-  // 3. ATUALIZADO: Função para lidar com o envio do formulário (agora assíncrona)
+  
   const handleSubmit = async (e) => {
     e.preventDefault(); 
     
-    // Validação básica
+    
     if (formData.password !== formData.confirmPassword) {
       alert("As senhas não coincidem!");
       return;
     }
     
-    // ----------------------------------------------------
-    // AQUI VOCÊ ADICIONARÁ A LÓGICA DE API (AXIOS/FETCH)
-    // ----------------------------------------------------
+   
     
     console.log("Dados prontos para envio:", formData);
     
     try {
-      // Simulação de chamada de API: Espere 2 segundos para simular o tempo de resposta
+     
       await new Promise(resolve => setTimeout(resolve, 2000)); 
       
-      // Simulação de sucesso no cadastro
+      
       alert("Cadastro realizado com sucesso! Redirecionando para o Login.");
       
-      // 4. AÇÃO CORRIGIDA: Redireciona para a tela de login
+      
       navigate('/login'); 
 
     } catch (error) {
@@ -62,11 +59,11 @@ function CadastroPage() {
 
   return (
     <>
-      {/* 5. REMOVIDO: O Cabeçalho não é mais renderizado aqui */}
+      {}
       
       <div className="cadastro-page-container">
         <div className="cadastro-form-wrapper">
-          {/* Ligando a função handleSubmit ao evento onSubmit do formulário */}
+        
           <form className="cadastro-form" onSubmit={handleSubmit}>
             <h2>Crie sua conta</h2>
             

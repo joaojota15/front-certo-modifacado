@@ -1,4 +1,4 @@
-import React, { useState } from 'react'; // 1. Adicionado useState
+import React, { useState } from 'react'; 
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext.jsx';
 
@@ -15,14 +15,14 @@ import {
   DiscordButton,
   GoogleButton,
   SteamButton,
-  // 2. REMOVIDOS: Header e AppLogo do import
+  
 } from './LoginPage.styles.js'; 
 
 function LoginPage() {
   const navigate = useNavigate();
   const auth = useAuth();
   
-  // 3. Estado para capturar Email e Senha
+  
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -39,20 +39,20 @@ function LoginPage() {
   const handleLoginSubmit = (event) => {
     event.preventDefault();
     
-    // 4. Aqui você faria a validação e chamada real à API
+    
     console.log("Dados de Login:", formData);
     
-    // Lógica de Autenticação (usando seu contexto)
+   
     auth.login(); 
     
-    // Redirecionamento
+    
     navigate('/dashboard');
   };
 
   return (
     <LoginPageContainer>
       
-      {/* 5. REMOVIDO: O <Header> e <AppLogo> foram removidos para parar a duplicação */}
+      {}
 
       <LoginCard>
         <Title>Bem-vindo de volta!</Title>
@@ -62,17 +62,17 @@ function LoginPage() {
             type="email" 
             required 
             placeholder="Email" 
-            name="email" // 6. Adicionado 'name'
-            value={formData.email} // 7. Input controlado
-            onChange={handleChange} // 8. Evento de captura
+            name="email" 
+            value={formData.email} 
+            onChange={handleChange} 
           />
           <Input 
             type="password" 
             required 
             placeholder="Senha" 
-            name="password" // 6. Adicionado 'name'
-            value={formData.password} // 7. Input controlado
-            onChange={handleChange} // 8. Evento de captura
+            name="password" 
+            value={formData.password} 
+            onChange={handleChange} 
           />
           <MainButton type="submit">Entrar</MainButton>
         </Form>

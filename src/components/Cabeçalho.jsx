@@ -8,7 +8,7 @@ function Header() {
     const { isAuthenticated, logout } = useAuth(); 
 
     const username = "ProGamer"; 
-    // 💥 CORREÇÃO: Caminhos relativos para rotas aninhadas
+    
     const userProfileLink = "perfil"; 
     const userSettingsLink = "settings"; 
 

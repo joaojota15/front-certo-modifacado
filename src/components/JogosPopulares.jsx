@@ -1,6 +1,6 @@
 import React from 'react';
 
-// imports das imagens
+
 import logoCounterStrike from '../assets/Logo Counter Strike.jpg';
 import logoFifa from '../assets/Logo Fifa 26.JPG';
 import logoRainbowSix from '../assets/Logo Raimbow Six Siege X.jpg';
