@@ -21,7 +21,7 @@ body {
 
 .header {
     background-color: #1a0245; /* Fundo do cabeçalho */
-    padding: 15px 0;
+    padding: 15px 0; /* O padding lateral não está aqui */
     border-bottom: 1px solid #3c0ba0;
 }
 
@@ -29,6 +29,9 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    /* 💥 CORREÇÃO AGRESSIVA: Zera o padding lateral herdado do .container */
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 }
 
 .logo-text {
@@ -36,6 +39,20 @@ body {
     font-size: 1.8rem;
     font-weight: bold;
     color: #a855f7; /* Roxo vibrante */
+}
+
+/* 💥 NOVO SELETOR: Adiciona o espaçamento (respiro) diretamente no logo e nos botões */
+/* Isso garante que o logo use o padding do <h1>/Link e não do .container */
+.header-container .logo-text,
+.header-container .header-nav {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* O padding dos botões de navegação precisa ser compensado */
+.header-container .header-nav {
+    /* O padding-right de 20px foi adicionado acima */
+    padding-left: 0; /* Remove o padding extra da esquerda na nav */
 }
 
 .header-nav .btn {
@@ -579,4 +596,125 @@ body {
 .settings-form input:focus {
     border-color: #a855f7;
     outline: none;
+}
+
+/* src/components/Modal.css */
+
+/* 1. O Fundo Escuro (Overlay) */
+.modal-overlay {
+    position: fixed; /* Fixa o elemento na tela */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7); /* Fundo preto semi-transparente */
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    z-index: 1000; /* Garante que fique acima de outros elementos */
+}
+
+/* 2. O Conteúdo da Caixa (Modal) */
+.modal-content {
+    background: #1e1e2d; /* Cor de fundo escura, similar ao seu tema */
+    padding: 30px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    position: relative;
+    color: #f0f0f0; /* Texto claro */
+    border: 1px solid #7c4dff; /* Borda roxa para combinar com o tema */
+    max-height: 80vh; /* Limita a altura */
+    overflow-y: auto; /* Adiciona scroll se o conteúdo for muito grande */
+}
+
+/* 3. Botão de Fechar */
+.modal-close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #f0f0f0;
+    cursor: pointer;
+    line-height: 1;
+    padding: 5px;
+}
+
+.modal-close-button:hover {
+    color: #7c4dff; /* Roxo no hover */
+}
+
+/* Estilos de Conteúdo */
+.modal-title {
+    margin-top: 0;
+    color: #a0a0ff; /* Título em destaque */
+}
+
+.modal-author {
+    font-size: 0.9em;
+    color: #bbb;
+    margin-bottom: 20px;
+}
+
+/* Adicione isso ao seu App.css */
+
+.login-card {
+    /* Mantenha o estilo do seu cartão de login (background, max-width, etc) */
+    text-align: center;
+    padding: 30px;
+}
+
+.login-title {
+    color: #a855f7;
+    margin-bottom: 25px;
+}
+
+.forgot-password-link {
+    background: none;
+    border: none;
+    color: #8b5cf6;
+    cursor: pointer;
+    font-size: 0.95rem;
+    margin: 15px 0;
+    padding: 0;
+    display: block; /* Garante que ocupe a linha inteira */
+    width: 100%;
+    text-align: center;
+}
+
+.separator {
+    color: #a0aec0;
+    margin: 20px 0;
+    font-size: 0.85rem;
+}
+
+.social-login-group button {
+    margin-bottom: 12px;
+}
+
+.btn-social {
+    display: block;
+    width: 100%;
+    padding: 12px 20px;
+    font-weight: bold;
+}
+
+/* Estilos de cor para as plataformas */
+.btn-discord {
+    background-color: #5865F2;
+    color: white;
+}
+
+.btn-google {
+    background-color: white;
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+.btn-steam {
+    background-color: #171A21;
+    color: white;
 }

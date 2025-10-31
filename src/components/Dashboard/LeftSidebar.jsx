@@ -1,6 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
+// 👈 Importa o componente modal
+import CreatePostModal from '../CreatePostModal'; 
 
 function LeftSidebar() {
+  // 1. Estado para controlar a visibilidade do modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Função para abrir o modal
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  // Função para fechar o modal (será passada como prop)
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+  
   return (
     <aside className="left-sidebar">
       <h3>Categorias</h3>
@@ -12,12 +27,25 @@ function LeftSidebar() {
         <li>Retro</li>
         <li>Esports</li>
       </ul>
-      <button className="btn-create-post">+ Criar Post</button>
+      
+      {/* 2. Adiciona o onClick para abrir o modal */}
+      <button 
+        className="btn-create-post"
+        onClick={handleOpenModal} 
+      >
+        + Criar Post
+      </button>
+      
       <nav className="user-nav">
         <a href="#">Meus Posts</a>
         <a href="#">Moderados</a>
         <a href="#">Salvos</a>
       </nav>
+      
+      {/* 3. Renderiza o modal condicionalmente */}
+      {isModalOpen && (
+        <CreatePostModal onClose={handleCloseModal} />
+      )}
     </aside>
   );
 }
