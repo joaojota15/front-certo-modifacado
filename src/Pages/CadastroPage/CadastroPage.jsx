@@ -1,15 +1,14 @@
-
+// src/Pages/Pages/CadastroPage/CadastroPage.jsx
 
 import React, { useState } from 'react'; 
 import { useNavigate } from 'react-router-dom'; 
+import { useAuth } from '../../context/AuthContext.jsx'; // <--- IMPORTAÇÃO NECESSÁRIA
 import './CadastroPage.styles.css'; 
 
 
-
 function CadastroPage() {
-  
   const navigate = useNavigate(); 
-  
+  const auth = useAuth(); // <--- OBTÉM AS FUNÇÕES DE AUTH
   
   const [formData, setFormData] = useState({
     username: '',
@@ -17,8 +16,10 @@ function CadastroPage() {
     password: '',
     confirmPassword: '',
   });
-
   
+  // Estado para feedback
+  const [feedback, setFeedback] = useState({ message: '', type: '' }); 
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -27,45 +28,60 @@ function CadastroPage() {
     });
   };
 
-  
+  // FUNÇÃO CORRIGIDA: Implementa a chamada de API de Registro
   const handleSubmit = async (e) => {
     e.preventDefault(); 
+    setFeedback({ message: '', type: '' });
     
-    
+    // 1. Validação de Senha (já existente)
     if (formData.password !== formData.confirmPassword) {
-      alert("As senhas não coincidem!");
+      setFeedback({ message: "As senhas não coincidem!", type: 'error' });
       return;
     }
     
-   
-    
-    console.log("Dados prontos para envio:", formData);
-    
+    // 2. Chamada de API real
     try {
-     
-      await new Promise(resolve => setTimeout(resolve, 2000)); 
-      
-      
-      alert("Cadastro realizado com sucesso! Redirecionando para o Login.");
-      
-      
-      navigate('/login'); 
+        const result = await auth.register(
+            formData.username, 
+            formData.email, 
+            formData.password
+        ); 
+        
+        if (result.success) {
+            setFeedback({ message: "Cadastro realizado com sucesso! Redirecionando para o Login.", type: 'success' });
+            // 3. Redireciona após um pequeno delay para mostrar o sucesso
+            setTimeout(() => {
+                navigate('/login');
+            }, 2000); 
+            
+        } else {
+            // Exibe erro da API (Ex: Usuário já existe, campos faltando)
+            setFeedback({ message: result.message || "Erro desconhecido ao cadastrar.", type: 'error' });
+        }
 
     } catch (error) {
-      console.error("Erro no cadastro (simulado):", error);
-      alert("Erro ao cadastrar. Tente novamente.");
+      console.error("Erro na comunicação com o servidor:", error);
+      setFeedback({ message: "Erro de rede. Servidor Flask indisponível.", type: 'error' });
     }
   };
 
   return (
     <>
-      {}
-      
       <div className="cadastro-page-container">
         <div className="cadastro-form-wrapper">
-        
+          
           <form className="cadastro-form" onSubmit={handleSubmit}>
             <h2>Crie sua conta</h2>
+
+            {/* Renderiza a mensagem de feedback (sucesso/erro) */}
+            {feedback.message && (
+                <p className={`feedback-${feedback.type}`} style={{ 
+                    color: feedback.type === 'error' ? 'red' : 'green', 
+                    fontWeight: 'bold' 
+                }}>
+                    {feedback.message}
+                </p>
+            )}
             
             <div className="input-group">
               <input 
@@ -75,7 +91,7 @@ function CadastroPage() {
                 placeholder="Nome de usuário" 
                 required 
                 value={formData.username} 
-                onChange={handleChange}     
+                onChange={handleChange}     
               />
             </div>
 

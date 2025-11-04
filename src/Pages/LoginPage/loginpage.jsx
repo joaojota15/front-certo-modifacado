@@ -1,8 +1,10 @@
+// src/Pages/LoginPage/LoginPage.jsx
+
 import React, { useState } from 'react'; 
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext.jsx';
-import ResetPasswordModal from '../../components/ResetPasswordModal.jsx'; // 👈 Importa o novo modal
-
+import ResetPasswordModal from '../../components/ResetPasswordModal.jsx'; 
+// Importa o novo modal
 
 import {
   LoginPageContainer,
@@ -24,9 +26,8 @@ function LoginPage() {
   
   // Novo estado para o modal de recuperação de senha
   const [isResetModalOpen, setIsResetModalOpen] = useState(false);
-  
   const [formData, setFormData] = useState({
-    email: '',
+    email: '', // Campo que o usuário preenche
     password: '',
   });
 
@@ -35,25 +36,32 @@ function LoginPage() {
     setFormData({
       ...formData,
       [name]: value,
-      });
+    });
   };
 
-  const handleLoginSubmit = (event) => {
+  // FUNÇÃO CORRIGIDA: Implementa a chamada de API
+  const handleLoginSubmit = async (event) => { 
     event.preventDefault();
     
-    // Lógica de autenticação com e-mail/senha
-    console.log("Dados de Login:", formData);
+    // ATENÇÃO: Se o Back-end Flask espera 'username' e não 'email', 
+    // você precisa mudar a linha abaixo para (formData.email, formData.password)
+    // assumindo que o usuário usa o email como username.
     
-    auth.login(); 
+    // Chama a função de login real do contexto, passando email como username para o Flask
+    const result = await auth.login(formData.email, formData.password); 
     
-    navigate('/dashboard');
+    if (result.success) { // Verifica se o resultado da API foi sucesso
+        console.log("Login bem-sucedido. Redirecionando...");
+        navigate('/dashboard');
+    } else {
+        // Exibe mensagem de erro da API (credenciais inválidas, etc.)
+        alert(result.message || "Erro no login. Verifique suas credenciais.");
+    }
   };
   
   // Nova função para login social
   const handleSocialLogin = (platform) => {
       console.log(`Iniciando login com ${platform}...`);
-      // Aqui, você implementaria o redirecionamento ou pop-up para o serviço OAuth.
-      // Exemplo: window.location.href = `/api/auth/${platform}`;
       alert(`Função de login com ${platform} ativada!`);
   };
 
