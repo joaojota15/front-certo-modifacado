@@ -45,6 +45,7 @@ export function AuthProvider({ children }) {
 
             if (response.ok) {
                 console.log("Registro bem-sucedido:", data);
+                
                 // No registro, o backend só retorna sucesso, não o token. O login deve ser chamado em seguida.
                 return { success: true, message: data.msg };
             } else {
