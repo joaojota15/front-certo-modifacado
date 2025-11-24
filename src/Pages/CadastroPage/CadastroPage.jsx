@@ -2,22 +2,21 @@
 
 import React, { useState } from 'react'; 
 import { useNavigate } from 'react-router-dom'; 
-import { useAuth } from '../../context/AuthContext.jsx'; // <--- IMPORTAÇÃO CRÍTICA
+import { useAuth } from '../../context/AuthContext.jsx';
 import './CadastroPage.styles.css'; 
-
 
 function CadastroPage() {
     const navigate = useNavigate(); 
-    const auth = useAuth(); // <--- OBTÉM AS FUNÇÕES DE AUTH (login, register)
+    const auth = useAuth();
     
     const [formData, setFormData] = useState({
         username: '',
         email: '',
         password: '',
         confirmPassword: '',
+        steam_id: '' // ← adicionar steam_id (mesmo que opcional)
     });
     
-    // Estado para feedback
     const [feedback, setFeedback] = useState({ message: '', type: '' }); 
 
     const handleChange = (e) => {
@@ -28,133 +27,116 @@ function CadastroPage() {
         });
     };
 
-    // FUNÇÃO FINAL: Implementa a chamada de API de Registro e Login Automático
     const handleSubmit = async (e) => {
         e.preventDefault(); 
         setFeedback({ message: '', type: '' });
         
-        // 1. Validação de Senha 
+        // Validação
         if (formData.password !== formData.confirmPassword) {
             setFeedback({ message: "As senhas não coincidem!", type: 'error' });
             return;
         }
-        
-        // 2. Chamada de API real para Registro
-        try {
-            const result = await auth.register(
-                formData.username, 
-                formData.email, 
-                formData.password
-            ); 
-            
-            if (result.success) {
-                
-                // --- SUCESSO NO REGISTRO ---
-                
-                // 3. Alerta e feedback visual (feedback do usuário)
-                alert("Cadastro realizado com sucesso! Fazendo login automático..."); 
-                setFeedback({ message: "Cadastro completo! Redirecionando...", type: 'success' });
-                
-                // 4. Tenta fazer login automaticamente com as novas credenciais
-                const loginResult = await auth.login(formData.username, formData.password);
 
-                if (loginResult.success) {
-                    // 5. Redireciona para o Dashboard (após o token ser salvo no AuthContext)
-                    navigate('/dashboard'); 
-                } else {
-                    // Se o login automático falhar (muito improvável)
-                    alert("Falha no Login Automático. Tente fazer login manualmente.");
-                    navigate('/login');
-                }
-                
+        // ---- REGISTRO ----
+        const result = await auth.register(
+            formData.username, 
+            formData.email, 
+            formData.password,
+            formData.steam_id
+        );
+
+        if (result.success) {
+            alert("Cadastro realizado com sucesso! Fazendo login automático...");
+
+            // ---- LOGIN AUTOMÁTICO ----
+            const loginResult = await auth.login(formData.email, formData.password);
+
+            if (loginResult.success) {
+                navigate('/dashboard');
             } else {
-                // 6. Erro da API (Ex: Usuário já existe)
-                setFeedback({ message: result.message || "Erro desconhecido ao cadastrar.", type: 'error' });
+                alert("Falha no login automático. Faça login manualmente.");
+                navigate('/login');
             }
 
-        } catch (error) {
-            console.error("Erro na comunicação com o servidor:", error);
-            setFeedback({ message: "Erro de rede. Servidor Flask indisponível.", type: 'error' });
+        } else {
+            setFeedback({ message: result.message, type: 'error' });
         }
     };
 
     return (
-        <>
-            <div className="cadastro-page-container">
-                <div className="cadastro-form-wrapper">
+        <div className="cadastro-page-container">
+            <div className="cadastro-form-wrapper">
+                
+                <form className="cadastro-form" onSubmit={handleSubmit}>
+                    <h2>Crie sua conta</h2>
+
+                    {feedback.message && (
+                        <p className={`feedback-${feedback.type}`} style={{ 
+                            color: feedback.type === 'error' ? 'red' : 'green', 
+                            fontWeight: 'bold' 
+                        }}>
+                            {feedback.message}
+                        </p>
+                    )}
                     
-                    <form className="cadastro-form" onSubmit={handleSubmit}>
-                        <h2>Crie sua conta</h2>
+                    <div className="input-group">
+                        <input 
+                            type="text" 
+                            name="username" 
+                            placeholder="Nome de usuário" 
+                            required 
+                            value={formData.username} 
+                            onChange={handleChange}     
+                        />
+                    </div>
 
-                        {/* Renderiza a mensagem de feedback (sucesso/erro) */}
-                        {feedback.message && (
-                            <p className={`feedback-${feedback.type}`} style={{ 
-                                color: feedback.type === 'error' ? 'red' : 'green', 
-                                fontWeight: 'bold' 
-                            }}>
-                                {feedback.message}
-                            </p>
-                        )}
-                        
-                        <div className="input-group">
-                            <input 
-                                type="text" 
-                                id="username" 
-                                name="username" 
-                                placeholder="Nome de usuário" 
-                                required 
-                                value={formData.username} 
-                                onChange={handleChange}     
-                            />
-                        </div>
+                    <div className="input-group">
+                        <input 
+                            type="email" 
+                            name="email" 
+                            placeholder="Email" 
+                            required 
+                            value={formData.email}
+                            onChange={handleChange}
+                        />
+                    </div>
 
-                        <div className="input-group">
-                            <input 
-                                type="email" 
-                                id="email" 
-                                name="email" 
-                                placeholder="Email" 
-                                required 
-                                value={formData.email}
-                                onChange={handleChange}
-                            />
-                        </div>
-                        
-                        <div className="input-group">
-                            <input 
-                                type="password" 
-                                id="password" 
-                                name="password" 
-                                placeholder="Senha" 
-                                required 
-                                value={formData.password}
-                                onChange={handleChange}
-                            />
-                        </div>
+                    <div className="input-group">
+                       
+                    </div>
+                    
+                    <div className="input-group">
+                        <input 
+                            type="password" 
+                            name="password" 
+                            placeholder="Senha" 
+                            required 
+                            value={formData.password}
+                            onChange={handleChange}
+                        />
+                    </div>
 
-                        <div className="input-group">
-                            <input 
-                                type="password" 
-                                id="confirmPassword" 
-                                name="confirmPassword" 
-                                placeholder="Confirmar Senha" 
-                                required 
-                                value={formData.confirmPassword}
-                                onChange={handleChange}
-                            />
-                        </div>
-                        
-                        <button type="submit" className="cadastro-button">
-                            Cadastrar
-                        </button>
-                        
-                        <div className="login-link">
-                            <p>Já tem uma conta? <a href="/login">Faça login</a></p>
-                        </div>
-                    </form>
-                </div>
+                    <div className="input-group">
+                        <input 
+                            type="password" 
+                            name="confirmPassword" 
+                            placeholder="Confirmar Senha" 
+                            required 
+                            value={formData.confirmPassword}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    
+                    <button type="submit" className="cadastro-button">
+                        Cadastrar
+                    </button>
+                    
+                    <div className="login-link">
+                        <p>Já tem uma conta? <a href="/login">Faça login</a></p>
+                    </div>
+                </form>
             </div>
-        </>
+        </div>
     );
 }
 

@@ -1,14 +1,95 @@
 // src/Pages/SettingsPage/SettingsPage.jsx
 
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; 
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import api from "../../services/api"; // <-- IMPORTANTE
 
-// Componentes de Conteúdo das Abas
+// ---------------------- COMPONENTE SECURITY SETTINGS ----------------------
+const SecuritySettings = () => {
+    const [newPassword, setNewPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [message, setMessage] = useState("");
+
+    const handlePasswordChange = async (e) => {
+        e.preventDefault();
+        setMessage("");
+
+        if (newPassword !== confirmPassword) {
+            setMessage("❌ As senhas não coincidem!");
+            return;
+        }
+
+        try {
+            setLoading(true);
+
+            // Token armazenado quando o usuário fez login
+            const token = localStorage.getItem("token");
+
+            const response = await api.post(
+                "/change-password",
+                {
+                    new_password: newPassword,
+                    token: token
+                }
+            );
+
+            setMessage("✅ Senha alterada! Um e-mail foi enviado.");
+            setNewPassword("");
+            setConfirmPassword("");
+
+        } catch (err) {
+            setMessage("❌ Erro ao alterar senha.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (
+        <div className="settings-content-card">
+            <h3>Segurança e Senha</h3>
+            <p className="setting-description">Troque sua senha para manter sua conta segura.</p>
+
+            <form className="settings-form" onSubmit={handlePasswordChange}>
+                <div className="form-group">
+                    <label>Nova Senha</label>
+                    <input 
+                        type="password" 
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                        placeholder="Digite a nova senha" 
+                        required
+                    />
+                </div>
+                <div className="form-group">
+                    <label>Confirmar Nova Senha</label>
+                    <input 
+                        type="password"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        placeholder="Confirme a nova senha" 
+                        required
+                    />
+                </div>
+
+                <button type="submit" className="btn btn-primary" disabled={loading}>
+                    {loading ? "Alterando..." : "Alterar Senha"}
+                </button>
+
+                {message && <p className="status-message">{message}</p>}
+            </form>
+        </div>
+    );
+};
+
+// ---------------------- PROFILE SETTINGS ----------------------
 const ProfileSettings = () => (
     <div className="settings-content-card">
         <h3>Informações do Perfil</h3>
-        <p className="setting-description">Aqui você pode alterar seu nome de usuário, email e localização.</p>
-        
+        <p className="setting-description">
+            Aqui você pode alterar seu nome de usuário, email e localização.
+        </p>
+
         <form className="settings-form">
             <div className="form-group">
                 <label>Nome de Usuário</label>
@@ -18,42 +99,20 @@ const ProfileSettings = () => (
                 <label>Email</label>
                 <input type="email" value="gamer@connect.com" readOnly />
             </div>
-            {/* O botão usa a classe btn-primary do seu app.css */}
             <button type="submit" className="btn btn-primary">Salvar Alterações</button>
         </form>
     </div>
 );
 
-const SecuritySettings = () => (
-    <div className="settings-content-card">
-        <h3>Segurança e Senha</h3>
-        <p className="setting-description">Mantenha sua conta segura trocando sua senha regularmente.</p>
-        
-        <form className="settings-form">
-            <div className="form-group">
-                <label>Nova Senha</label>
-                <input type="password" placeholder="Digite a nova senha" />
-            </div>
-            <div className="form-group">
-                <label>Confirmar Nova Senha</label>
-                <input type="password" placeholder="Confirme a nova senha" />
-            </div>
-            <button type="submit" className="btn btn-primary">Alterar Senha</button>
-        </form>
-    </div>
-);
-
-
+// ---------------------- PÁGINA PRINCIPAL ----------------------
 function SettingsPage() {
-    // Estado para controlar qual aba está ativa (Abas: profile, security)
-    const [activeTab, setActiveTab] = useState('profile');
+    const [activeTab, setActiveTab] = useState("profile");
 
-    // Mapeia o estado ativo para o componente de conteúdo
     const renderContent = () => {
         switch (activeTab) {
-            case 'profile':
+            case "profile":
                 return <ProfileSettings />;
-            case 'security':
+            case "security":
                 return <SecuritySettings />;
             default:
                 return <ProfileSettings />;
@@ -61,39 +120,33 @@ function SettingsPage() {
     };
 
     return (
-        // Usa a classe 'container' para centralizar e as classes Grid
         <div className="container">
-            
             <h1 className="settings-title">Configurações da Conta</h1>
 
-            {/* Layout de duas colunas: menu e conteúdo */}
             <div className="settings-grid">
-                
-                {/* 1. Menu Lateral (Sidebar) */}
                 <aside className="settings-sidebar">
-                    <button 
-                        className={`settings-tab-btn ${activeTab === 'profile' ? 'active' : ''}`}
-                        onClick={() => setActiveTab('profile')}
+                    <button
+                        className={`settings-tab-btn ${activeTab === "profile" ? "active" : ""}`}
+                        onClick={() => setActiveTab("profile")}
                     >
                         Perfil
                     </button>
-                    <button 
-                        className={`settings-tab-btn ${activeTab === 'security' ? 'active' : ''}`}
-                        onClick={() => setActiveTab('security')}
+
+                    <button
+                        className={`settings-tab-btn ${activeTab === "security" ? "active" : ""}`}
+                        onClick={() => setActiveTab("security")}
                     >
                         Segurança
                     </button>
-                    {/* Link para voltar ao perfil */}
+
                     <Link to="/perfil" className="settings-tab-btn settings-tab-back">
                         ← Voltar ao Perfil
                     </Link>
                 </aside>
 
-                {/* 2. Conteúdo da Configuração */}
                 <section className="settings-content-main">
                     {renderContent()}
                 </section>
-                
             </div>
         </div>
     );

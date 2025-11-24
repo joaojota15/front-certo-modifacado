@@ -386,39 +386,63 @@ body {
 }
 
 /* --- COLUNA CENTRAL (BIBLIOTECA & ATIVIDADES) --- */
-
-.library-section h2, .activities-section h2 {
-    font-size: 1.6rem;
-    margin-bottom: 15px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid #3c0ba0;
-}
-
-/* Biblioteca de Jogos (Grid) */
-.games-grid-perfil {
+/* Container da biblioteca de jogos */
+.library-section .games-grid-perfil {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
     gap: 15px;
     margin-bottom: 40px;
 }
 
-.game-card-perfil {
-    background-color: #33334d;
+/* Cada card da biblioteca */
+.library-section .games-grid-perfil .game-card-perfil {
+    position: relative; /* Apenas o card controla o posicionamento */
+    height: 150px;
     border-radius: 6px;
-    padding: 15px;
-    height: 100px; 
-    font-weight: bold;
-    font-size: 0.9rem;
-    display: flex;
-    align-items: flex-end;
+    overflow: hidden;
+    cursor: pointer;
     border: 1px solid transparent;
     transition: all 0.2s;
+    display: flex;
+    align-items: flex-end; /* nome do jogo na parte inferior */
 }
 
-.game-card-perfil:hover {
+/* Hover do card */
+.library-section .games-grid-perfil .game-card-perfil:hover {
     border-color: #a855f7;
     background-color: #3d0e7a;
 }
+
+/* Imagem do card */
+.library-section .games-grid-perfil .game-card-perfil img.game-image {
+    position: absolute; /* só dentro do card */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    transition: transform 0.3s;
+}
+
+/* Zoom da imagem no hover */
+.library-section .games-grid-perfil .game-card-perfil:hover img.game-image {
+    transform: scale(1.05);
+}
+
+/* Nome do jogo */
+.library-section .games-grid-perfil .game-card-perfil .game-name {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    font-weight: bold;
+    padding: 5px 0;
+    font-size: 0.9rem;
+}
+
 
 /* Atividades */
 .activity-item {

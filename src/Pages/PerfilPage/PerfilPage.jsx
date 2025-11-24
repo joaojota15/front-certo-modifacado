@@ -1,15 +1,45 @@
 // src/Pages/PerfilPage/PerfilPage.jsx
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+// Importamos 'useNavigate' junto com 'Link'
+import { Link, useNavigate } from 'react-router-dom'; 
+import { useAuth } from '../../context/AuthContext'; // ajuste o caminho se necessário
+import fotoGhost from '../../assets/foto ghost.jpg';
+import ghostReconImg from '../../assets/ghost-recon.jpg';
+import csLogoImg from '../../assets/Logo Counter Strike.jpg'; // ajuste o caminho se necessário
+import eaSportsImg from '../../assets/Capa-EA-Sports.jpg';
+import mafiaImg from '../../assets/capa mafia.jpg';
+import gtaVImg from '../../assets/gta-v-grand.jpg';
+import rainbowSixImg from '../../assets/Logo Raimbow Six Siege X.jpg';
+
+
+
+
+
+
+
 
 function PerfilPage() {
-    // Dados de exemplo
-    const username = "NICKNAME"; 
-    const isLoggedUser = true; 
+    // 1. Inicializar o hook useNavigate
+    const navigate = useNavigate(); 
+    
+    const { user, isAuthenticated } = useAuth(); // pega usuário logado
+
+    if (!isAuthenticated) {
+        return <p>Você precisa estar logado para ver o perfil.</p>;
+    }
+
+    // 2. Função para navegar para o Dashboard
+    // Assumindo que a rota do Dashboard é '/dashboard' ou apenas '/'
+    const handleGoToDashboard = () => {
+        // Você pode ajustar a rota aqui, por exemplo: navigate('/');
+        navigate('/dashboard'); 
+    };
+
+    const username = user?.username || "Carregando...";
+    const userLocation = user?.location || "Brasil"; // caso queira pegar do backend se tiver
 
     return (
-        // 💥 CORREÇÃO: Adicionamos a classe "container" de volta, combinada com o Grid de layout
         <div className="container profile-page-layout"> 
             
             {/* 1. COLUNA ESQUERDA (Perfil, Stats e Plataformas) */}
@@ -17,10 +47,25 @@ function PerfilPage() {
                 
                 {/* 1.1 Cartão do Usuário */}
                 <div className="user-card">
-                    <div className="profile-img-placeholder"></div>
+              <div className="profile-img-wrapper">
+  <img
+    src={user?.avatar || fotoGhost} // usa a foto do usuário ou a padrão
+    alt={`${username} avatar`}
+    style={{
+      width: '200px',
+      height: '230px',
+      borderRadius: '50%',
+      objectFit: 'cover',
+      border: '2px solid #7f00ff',
+      display: 'block',
+      margin: '0 auto 10px'
+    }}
+  />
+</div>
+
                     
                     <h3>{username}</h3>
-                    <p className="user-location">Brasil</p>
+                    <p className="user-location">{userLocation}</p>
 
                     {/* Stats */}
                     <div className="user-stats-grid">
@@ -29,7 +74,7 @@ function PerfilPage() {
                             <span className="stat-label">jogos</span>
                         </div>
                         <div className="stat-item">
-                            <span className="stat-value">1845h</span>
+                            <span className="stat-value">185h</span>
                             <span className="stat-label">horas</span>
                         </div>
                         <div className="stat-item">
@@ -39,7 +84,7 @@ function PerfilPage() {
                     </div>
 
                     {/* Botão de Perfil */}
-                    {isLoggedUser && (
+                    {isAuthenticated && (
                         <Link to="/settings" className="btn btn-primary btn-edit-profile">Editar Perfil</Link>
                     )}
                 </div>
@@ -48,28 +93,68 @@ function PerfilPage() {
                 <div className="platforms-section">
                     <h4>PLATAFORMAS</h4>
                     <ul className="platforms-list">
-                        <li className="platform-item epic">GAMETAG</li>
-                        <li className="platform-item xbox">GAMETAG</li>
-                        <li className="platform-item ps">GAMETAG</li>
-                        <li className="platform-item steam">GAMETAG</li>
+                        <li className="platform-item epic">Joao_jpj</li>
+                        <li className="platform-item xbox">jotinha_09</li>
+                        <li className="platform-item ps">jota_jtt09</li>
+                      
                     </ul>
                 </div>
             </aside>
 
-
             {/* 2. COLUNA CENTRAL (Biblioteca e Atividades) */}
             <section className="profile-content-main">
+        
+{/* NOVO BOTÃO DE NAVEGAÇÃO ADICIONADO AQUI */}
+<button 
+    onClick={handleGoToDashboard} 
+    className="btn btn-tertiary btn-full-width btn-back-dashboard"
+    style={{ 
+        marginBottom: '20px',
+        backgroundColor: '#7f00ff', 
+        color: 'white',             
+        border: 'none',           
+        padding: '10px 15px',       
+        borderRadius: '8px'        
+    }} 
+>
+    ⬅️ Voltar para o Dashboard
+</button>
+{/* FIM DO NOVO BOTÃO */}
+    
                 
                 {/* 2.1 Biblioteca de Jogos */}
                 <div className="library-section">
                     <h2>Biblioteca</h2>
                     <div className="games-grid-perfil">
-                        <div className="game-card-perfil">Cyberpunk 2077</div>
-                        <div className="game-card-perfil">Counter-Strike</div>
-                        <div className="game-card-perfil">Hades</div>
-                        <div className="game-card-perfil">Stardew Valley</div>
-                        <div className="game-card-perfil">Hollow Knight</div>
-                        <div className="game-card-perfil">DOTA 2</div>
+                        <div className="game-card-perfil">
+  <img src={ghostReconImg} alt="Ghost Recon" className="game-image" />
+  <span className="game-name">Ghost Recon</span>
+</div>
+<Link to="/jogo/cs" className="game-card-perfil">
+  <img src={csLogoImg} alt="Counter-Strike" className="game-image" />
+  <span className="game-name">Counter-Strike</span>
+</Link>
+
+<div className="game-card-perfil">
+  <img src={eaSportsImg} alt="EA Sports" className="game-image" />
+  <span className="game-name">EA Sports</span>
+</div>
+
+                       <div className="game-card-perfil">
+  <img src={mafiaImg} alt="Mafia" className="game-image" />
+  <span className="game-name">Mafia</span>
+</div>
+
+                      <div className="game-card-perfil">
+  <img src={gtaVImg} alt="GTA V" className="game-image" />
+  <span className="game-name">GTA V</span>
+</div>
+
+                      <div className="game-card-perfil">
+  <img src={rainbowSixImg} alt="Rainbow Six Siege" className="game-image" />
+  <span className="game-name">Rainbow Six Siege</span>
+</div>
+
                     </div>
                 </div>
 
@@ -88,7 +173,7 @@ function PerfilPage() {
                         <p className="activity-title">Torneio semanal - Inscrição</p>
                         <p className="activity-details">Criou tópico: "Times 5v5" • 3 dias atrás</p>
                     </div>
-                     <div className="activity-item activity-new">
+                      <div className="activity-item activity-new">
                         <p className="activity-title">Torneio semanal - Inscrição</p>
                         <p className="activity-details">Criou tópico: "Times 5v5" • 3 dias atrás</p>
                     </div>
@@ -97,7 +182,6 @@ function PerfilPage() {
                 <button className="btn btn-secondary btn-full-width">Comentários</button>
             </section>
 
-
             {/* 3. COLUNA DIREITA (Amigos e Conquistas) */}
             <aside className="profile-sidebar-right">
                 
@@ -105,9 +189,9 @@ function PerfilPage() {
                 <div className="friends-section">
                     <h4>Amigos</h4>
                     <ul className="friends-list">
-                        <li>• ProGamer</li>
-                        <li>• IndieFan</li>
-                        <li>• User123</li>
+                        <li>• luangamplay</li>
+                        <li>• noobmaster</li>
+                        <li>• gamer_43224</li>
                     </ul>
                 </div>
 

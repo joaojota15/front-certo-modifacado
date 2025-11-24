@@ -1,0 +1,107 @@
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(to bottom, #0d0018, #2f0064);
+  color: white;
+}
+
+/* Top bar */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background: #0a0014;
+  color: #b060ff;
+}
+
+.logo {
+  font-size: 28px;
+  margin: 0;
+}
+
+.perfil-btn {
+  background: #b060ff;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Banner */
+.banner {
+  position: relative;
+  height: 240px;
+}
+
+.banner-img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+}
+
+.banner-title {
+  position: absolute;
+  bottom: 20px;
+  left: 30px;
+  font-size: 42px;
+  font-weight: bold;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 30px;
+  padding: 20px;
+  background: #0b0018;
+}
+
+.tabs button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Main content */
+.content {
+  display: flex;
+  padding: 40px;
+  gap: 40px;
+}
+
+.screenshots img {
+  width: 380px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.about {
+  max-width: 400px;
+}
+
+.about h2 {
+  margin-bottom: 10px;
+}
+
+.add-btn {
+  margin-top: 20px;
+  background: #b060ff;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 30px;
+  margin-top: 40px;
+  background: #0a0014;
+  opacity: 0.6;
+}
