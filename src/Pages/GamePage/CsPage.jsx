@@ -1,7 +1,7 @@
 import React from "react";
 import csLogoImg from "../../assets/Logo Counter Strike.jpg";
 import bannerCs from "../../assets/bannercs.png";
-import csJogo from "../../assets/csjogo.jpg"; // ← nome correto
+import csJogo from "../../assets/csjogo.jpg";
 
 import "./CsPage.css";
 
@@ -29,7 +29,7 @@ export default function CsPage() {
       <section className="content">
         <div className="screenshots">
           <img src={csLogoImg} alt="Screenshot 1" className="screenshot" />
-          <img src={csJogo} alt="Screenshot 2" className="screenshot" /> {/* ← corrigido */}
+          <img src={csJogo} alt="Screenshot 2" className="screenshot" />
         </div>
 
         <div className="about">
@@ -44,9 +44,6 @@ export default function CsPage() {
           <button className="add-btn">Adicionar à Biblioteca</button>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="footer">GAMECONECT © 2025</footer>
     </div>
   );
 }
