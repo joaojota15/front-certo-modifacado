@@ -2,7 +2,8 @@ import React from 'react';
 
 
 import logoCounterStrike from '../assets/Logo Counter Strike.jpg';
-import logoFifa from '../assets/Logo Fifa 26.JPG';
+import LogoFifa from "../assets/logo-fifa-26.jpg";
+
 import logoRainbowSix from '../assets/Logo Raimbow Six Siege X.jpg';
 
 function PopularGames() {
